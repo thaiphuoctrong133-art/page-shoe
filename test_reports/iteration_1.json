@@ -1,0 +1,44 @@
+{
+  "summary": "Frontend-only testing of niceshoe Vietnamese shoe landing page. 8 of 10 scenarios passed. 2 bugs found: (1) Cart persistence broken — localStorage gets overwritten to [] on reload due to a useEffect race condition in CartContext. (2) Newsletter invalid-email toast unreachable because HTML5 native validation on type=email blocks JS submit. Everything else (header, hero, 8 product cards, filters, sort by price asc, add-to-cart toast + badge, cart sheet open/qty controls/total/remove/empty state, quick view dialog with size selector, valid-email success toast) works as specified.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "CartContext.jsx",
+        "issue": "Cart persistence broken: after reload, localStorage 'niceshoe_cart_v1' is overwritten to []. Items added before reload are lost and badge does not reappear.",
+        "selector": "data-testid='cart-count-badge'",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Newsletter.jsx",
+        "issue": "Toast 'Vui lòng nhập email hợp lệ' never shows for invalid input. The <input type='email'> triggers browser HTML5 validation that blocks form submission before the custom JS onSubmit handler can run.",
+        "selector": "data-testid='newsletter-input'",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix cart persistence race in /app/frontend/src/context/CartContext.jsx: use lazy initial state useState(() => JSON.parse(localStorage.getItem('niceshoe_cart_v1') || '[]')) OR add a 'hydrated' ref/flag so the persist-effect skips the first run until hydration completes. Currently the persist effect writes the initial [] to localStorage on mount before the hydration effect's setItems takes effect.",
+    "Fix newsletter validation in /app/frontend/src/components/landing/Newsletter.jsx: either add noValidate to the <form>, or change input type to 'text', so that the JS regex check + toast.error path is actually reached for invalid emails."
+  ],
+  "critical_code_review_comments": [
+    "CartContext race condition: persist-effect should not run before hydrate-effect. Prefer lazy initializer in useState to read localStorage synchronously on mount.",
+    "Newsletter form lacks noValidate, so custom validation in onSubmit never runs when browser-native email validation rejects input.",
+    "Minor: PRODUCTS array is duplicated across cart items by snapshot; harmless but could grow stale if catalog updates.",
+    "Code is clean, componentized, uses data-testid consistently — easy to test. No file size issues. No hardcoded URLs."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not tested per request)", "frontend": "80%"},
+  "test_credentials": "none required",
+  "seed_data_creation": "none",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 10 scenarios were exercised in a single Playwright run. 8/10 passed: landing load + sections, header nav, hero text/CTAs, 8 product cards, sneakers filter (3 cards), price-asc sort, add-to-cart-p-001 toast + badge, cart sheet open with item + total 1.290.000 ₫, qty+/qty- updates total (2.580.000 ↔ 1.290.000), remove item shows 'Chưa có gì ở đây' empty state, quick-view-p-002 dialog + size-42 selection + 'Thêm vào giỏ — Size 42' add closes dialog, valid newsletter email shows 'Đăng ký thành công'. 2 failed: invalid newsletter email shows no error toast (HTML5 validation blocks JS); cart does not persist across reload (localStorage overwritten to []). After main agent fixes these two, re-run only Phase 7 (newsletter invalid) and Phase 8 (reload + localStorage check) to verify.",
+  "rca of the issue": "Cart persistence RCA: In CartContext.jsx, useState(0) initializes items=[]. Two useEffects are declared: (1) hydrate from localStorage via setItems, (2) write items to localStorage whenever items changes. On first mount React runs both effects after the first commit. Effect 2 runs with the current closure value items=[] and writes '[]' to localStorage, clobbering any previously saved cart BEFORE Effect 1's setItems has caused a re-render. Reproduction: add item -> reload -> open devtools -> localStorage.getItem('niceshoe_cart_v1') === '[]'. Mitigation: read localStorage synchronously inside useState initializer, e.g. useState(() => { try { return JSON.parse(localStorage.getItem('niceshoe_cart_v1')) || []; } catch { return []; } }). Then remove the hydrate effect entirely. Newsletter RCA: <input type='email' required-ish behavior> triggers browser validity check on submit which prevents the React synthetic submit from firing the onSubmit handler. Mitigation: add noValidate to <form> or change type to 'text' and rely solely on JS regex."
+}
