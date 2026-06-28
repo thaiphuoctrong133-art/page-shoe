@@ -1,0 +1,153 @@
+{
+  "project_name": "niceshoe E-commerce Landing Page",
+  "theme": "light",
+  "archetype": "Archetype 1: Organic & Earthy (Minimalist Editorial E-commerce)",
+  "emotional_tone": "Modern, friendly, refined, spacious, trustworthy",
+  "global_rules": [
+    "Prioritize 'Editorial Minimalism': use generous whitespace and let the shoe imagery be the hero.",
+    "No generic shadows on product cards. Use flat backgrounds and subtle scale or opacity changes on hover.",
+    "Add data-testid attributes to all interactive elements for testing.",
+    "All text content MUST be in Vietnamese."
+  ],
+  "colors": {
+    "background": {
+      "base": "#FAFAFA",
+      "surface": "#FFFFFF",
+      "alt_section": "#F5F3F0"
+    },
+    "text": {
+      "primary": "#111111",
+      "secondary": "#666666",
+      "inverse": "#FFFFFF"
+    },
+    "brand": {
+      "primary": "#111111",
+      "accent": "#E5E5E5"
+    },
+    "status": {
+      "success": "#2E7D32",
+      "sale": "#D32F2F"
+    }
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Outfit, sans-serif",
+      "body": "Manrope, sans-serif",
+      "logo": "Outfit, sans-serif"
+    },
+    "scales": {
+      "h1": "text-5xl md:text-6xl tracking-tighter font-medium text-[#111111]",
+      "h2": "text-3xl md:text-4xl tracking-tight font-medium text-[#111111]",
+      "h3": "text-xl md:text-2xl tracking-tight font-medium text-[#111111]",
+      "body": "text-base leading-relaxed text-[#666666]",
+      "small": "text-sm text-[#666666] tracking-wide",
+      "overline": "text-xs uppercase tracking-[0.2em] font-bold text-[#111111]"
+    }
+  },
+  "layout_and_spacing": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-16 md:py-24",
+    "grid": {
+      "products": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8",
+      "bento_categories": "grid grid-cols-1 md:grid-cols-3 gap-6"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#111111] text-white hover:bg-black/80 rounded-none px-8 py-4 transition-colors font-medium text-sm tracking-wide",
+      "secondary": "bg-transparent border border-[#E5E5E5] text-[#111111] hover:bg-[#F5F3F0] rounded-none px-8 py-4 transition-colors font-medium text-sm tracking-wide"
+    },
+    "cards": {
+      "product": "group cursor-pointer flex flex-col bg-transparent",
+      "image_wrapper": "relative aspect-[4/5] bg-[#F5F3F0] overflow-hidden mb-4",
+      "image": "object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+    },
+    "shadcn_usage": [
+      "Sheet: For the shopping cart slide-over.",
+      "Dialog: For Product Quick View modal.",
+      "Input: Minimalist borders (border-b only or very light border) for search and newsletter.",
+      "Select: For product filtering (e.g., Mới nhất, Giá tăng/giảm).",
+      "Badge: For 'Mới' or 'Bán chạy' tags on products. Use sharp corners.",
+      "Toast (Sonner): Minimalist black toast for 'Đã thêm vào giỏ hàng'."
+    ]
+  },
+  "motion": {
+    "page_load": "Fade in and slight slide up for main elements.",
+    "hover": "Image scale up (1.05) over 700ms. Button background darken.",
+    "cart_drawer": "Smooth slide in from right."
+  },
+  "assets": {
+    "icons": "lucide-react",
+    "images": [
+      {
+        "category": "hero",
+        "url": "https://images.pexels.com/photos/11590235/pexels-photo-11590235.jpeg",
+        "description": "White sneakers with dramatic light and shadows on wooden deck, used for main hero section background or prominent graphic."
+      },
+      {
+        "category": "product_sneaker",
+        "url": "https://images.pexels.com/photos/5172731/pexels-photo-5172731.jpeg",
+        "description": "Minimal white sneaker lifestyle shot."
+      },
+      {
+        "category": "product_leather_1",
+        "url": "https://images.pexels.com/photos/37465528/pexels-photo-37465528.jpeg",
+        "description": "Pair of stylish black formal shoes on minimalist background."
+      },
+      {
+        "category": "product_leather_2",
+        "url": "https://images.unsplash.com/photo-1563434564528-8fdf5996e622",
+        "description": "Brown leather oxfords."
+      },
+      {
+        "category": "product_fashion_1",
+        "url": "https://images.unsplash.com/photo-1562687848-c1664eff566d",
+        "description": "White leather pointed toe stiletto."
+      },
+      {
+        "category": "product_fashion_2",
+        "url": "https://images.unsplash.com/photo-1623123627523-edd3cc6d13bb",
+        "description": "White peep toe pumps lifestyle."
+      },
+      {
+        "category": "background_texture",
+        "url": "https://images.pexels.com/photos/4709524/pexels-photo-4709524.jpeg",
+        "description": "Light beige marble/stone surface for testimonial or USP section background."
+      }
+    ]
+  },
+  "pages_and_sections": [
+    {
+      "name": "Header",
+      "details": "Sticky crystal glass header (backdrop-blur-md bg-white/80). Logo 'niceshoe' text in Outfit font. Nav links (Nam, Nữ, Bộ sưu tập). Search icon, Cart icon with badge."
+    },
+    {
+      "name": "Hero Section",
+      "details": "Full height or 80vh. Use 'hero' image. Large bold typography: 'Tối giản. Tinh tế. Mỗi bước đi.' CTA button: 'Mua sắm ngay'. Layout should be asymmetrical or text overlay with gradient."
+    },
+    {
+      "name": "Category Bento",
+      "details": "3 blocks: 'Sneakers', 'Giày Công Sở', 'Thời Trang Nữ'. Use product images inside muted background boxes. Overlay text at bottom left."
+    },
+    {
+      "name": "Featured Products",
+      "details": "Grid of 4-8 shoes. Show image, name, price. Hovering reveals 'Thêm vào giỏ' and 'Xem nhanh' buttons. Use dummy data for products with provided URLs."
+    },
+    {
+      "name": "Why Choose Us (USPs)",
+      "details": "3 columns. Icons (Truck, ShieldCheck, RefreshCcw). Text: Miễn phí vận chuyển, Bảo hành 1 năm, Đổi trả 30 ngày. Background: subtle texture or off-white."
+    },
+    {
+      "name": "Testimonials",
+      "details": "Minimalist text reviews. E.g., 'Thiết kế đẹp, đi rất êm chân.' - Nguyễn Văn A."
+    },
+    {
+      "name": "Newsletter & Footer",
+      "details": "Simple input field with 'Đăng ký' button. Footer with links, social icons, and copyright. Dark gray background for footer."
+    },
+    {
+      "name": "Shopping Cart (Client-side)",
+      "details": "Shadcn Sheet component. Shows items, quantity controls (+/-), total price, and 'Thanh toán' (placeholder button). Use zustand or Context API for state management."
+    }
+  ]
+}
