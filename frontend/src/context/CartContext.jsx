@@ -5,18 +5,15 @@ const CartContext = createContext(null);
 const STORAGE_KEY = "niceshoe_cart_v1";
 
 export const CartProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Hydrate from localStorage
-  useEffect(() => {
+  const [items, setItems] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setItems(JSON.parse(raw));
+      return raw ? JSON.parse(raw) : [];
     } catch (e) {
-      // ignore
+      return [];
     }
-  }, []);
+  });
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     try {

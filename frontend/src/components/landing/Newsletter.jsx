@@ -40,6 +40,7 @@ export const Newsletter = () => {
 
         <form
           onSubmit={onSubmit}
+          noValidate
           className="mt-10 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
         >
           <input
